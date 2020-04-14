@@ -31,6 +31,12 @@
         android:summary="@string/pixel_navbar_anim_summary"
         android:defaultValue="true" />-->
 
+    <com.crdroid.settings.preferences.SystemSettingSwitchPreference
+        android:key="navigation_bar_ime_space"
+        android:title="@string/navigation_bar_ime_space_title"
+        android:summary="@string/navigation_bar_ime_space_summary"
+        android:defaultValue="true" />
+
     <lineageos.preference.LineageSystemSettingSwitchPreference
         android:key="navigation_bar_menu_arrow_keys"
         android:title="@string/navbar_arrow_keys_title"

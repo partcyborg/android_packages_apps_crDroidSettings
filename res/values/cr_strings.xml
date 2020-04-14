@@ -2549,4 +2549,8 @@
     <string name="ringtone_focus_mode_title">When headset connected, incoming call plays on</string>
     <string name="ringtone_focus_mode_dynamic">Headset only if music is active</string>
     <string name="ringtone_focus_mode_stock">Both speaker and headset</string>
+
+    <!-- IME button space -->
+    <string name="navigation_bar_ime_space_title">IME button space</string>
+    <string name="navigation_bar_ime_space_summary">Show IME button space below keyboard</string>
 </resources>

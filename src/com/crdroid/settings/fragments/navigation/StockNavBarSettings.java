@@ -37,6 +37,8 @@ import com.crdroid.settings.R;
 
 import static org.lineageos.internal.util.DeviceKeysConstants.*;
 
+import com.android.settings.gestures.SystemNavigationGestureSettings;
+
 import lineageos.providers.LineageSettings;
 
 public class StockNavBarSettings extends SettingsPreferenceFragment implements
@@ -49,11 +51,14 @@ public class StockNavBarSettings extends SettingsPreferenceFragment implements
     private static final String KEY_NAVIGATION_APP_SWITCH_LONG_PRESS =
             "navigation_app_switch_long_press";
     private static final String KEY_EDGE_LONG_SWIPE = "navigation_bar_edge_long_swipe";
+    private static final String KEY_NAVIGATION_IME_SPACE = "navigation_bar_ime_space";
 
     private ListPreference mNavigationHomeLongPressAction;
     private ListPreference mNavigationHomeDoubleTapAction;
     private ListPreference mNavigationAppSwitchLongPressAction;
     private ListPreference mEdgeLongSwipeAction;
+
+    private SwitchPreference mNavigationIMESpace;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,6 +103,9 @@ public class StockNavBarSettings extends SettingsPreferenceFragment implements
 
         // Edge long swipe gesture
         mEdgeLongSwipeAction = initList(KEY_EDGE_LONG_SWIPE, edgeLongSwipeAction);
+
+        mNavigationIMESpace = (SwitchPreference) findPreference(KEY_NAVIGATION_IME_SPACE);
+        mNavigationIMESpace.setOnPreferenceChangeListener(this);
     }
 
     private ListPreference initList(String key, Action value) {
@@ -144,6 +152,9 @@ public class StockNavBarSettings extends SettingsPreferenceFragment implements
         } else if (preference == mEdgeLongSwipeAction) {
             handleListChange(mEdgeLongSwipeAction, newValue,
                     LineageSettings.System.KEY_EDGE_LONG_SWIPE_ACTION);
+            return true;
+        } else if (preference == mNavigationIMESpace) {
+            SystemNavigationGestureSettings.updateNavigationBarOverlays(getActivity());
             return true;
         }
         return false;
