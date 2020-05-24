@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016-2019 crDroid Android Project
+     Copyright (C) 2016-2020 crDroid Android Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -2089,13 +2089,13 @@
     <!-- Display cutout options -->
     <string-array name="display_cutout_style_entries" translatable="false">
         <item>@string/display_cutout_style_normal</item>
-        <item>@string/display_cutout_style_immerse</item>
+        <!--<item>@string/display_cutout_style_immerse</item>-->
         <item>@string/display_cutout_style_hide</item>
     </string-array>
 
     <string-array name="display_cutout_style_values" translatable="false">
         <item>0</item>
-        <item>1</item>
+        <!--<item>1</item>-->
         <item>2</item>
     </string-array>
 

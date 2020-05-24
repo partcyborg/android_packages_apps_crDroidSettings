@@ -45,6 +45,7 @@ import com.android.settingslib.search.SearchIndexable;
 
 import com.crdroid.settings.R;
 import com.crdroid.settings.fragments.ui.Animations;
+import com.crdroid.settings.fragments.ui.CutoutSettings;
 import com.crdroid.settings.fragments.ui.DozeSettings;
 import com.crdroid.settings.fragments.ui.RoundedCorners;
 import com.crdroid.settings.fragments.ui.SmartPixels;
@@ -59,12 +60,10 @@ import lineageos.providers.LineageSettings;
 public class UserInterface extends SettingsPreferenceFragment implements Indexable {
 
     private static final String SMART_PIXELS = "smart_pixels";
-    private static final String DISPLAY_CUTOUT_FULL_SCREEN = "display_cutout_force_fullscreen_settings";
-    private static final String DISPLAY_CUTOUT = "sysui_display_cutout";
+    private static final String CUTOUT_SETTINGS = "cutout_settings";
 
     private Preference mSmartPixels;
-    private Preference mDisplayCutoutFullScreen;
-    private Preference mDisplayCutout;
+    private Preference mCutoutSettings;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,25 +81,18 @@ public class UserInterface extends SettingsPreferenceFragment implements Indexab
         if (!mSmartPixelsSupported)
             prefScreen.removePreference(mSmartPixels);
 
-        mDisplayCutoutFullScreen = (Preference) prefScreen.findPreference(DISPLAY_CUTOUT_FULL_SCREEN);
+        mCutoutSettings = (Preference) prefScreen.findPreference(CUTOUT_SETTINGS);
         if (!DeviceUtils.hasNotch(mContext))
-            prefScreen.removePreference(mDisplayCutoutFullScreen);
+            prefScreen.removePreference(mCutoutSettings);
 
-        boolean hasDisplayCutout = mContext.getResources().getBoolean(
-                com.android.internal.R.bool.config_fillMainBuiltInDisplayCutout);
-
-        mDisplayCutout = (Preference) prefScreen.findPreference(DISPLAY_CUTOUT);
-        if (!hasDisplayCutout)
-            prefScreen.removePreference(mDisplayCutout);
     }
 
     public static void reset(Context mContext) {
         ContentResolver resolver = mContext.getContentResolver();
-        Settings.Secure.putIntForUser(resolver,
-                Settings.Secure.SYSUI_DISPLAY_CUTOUT, 1, UserHandle.USER_CURRENT);
         Settings.System.putIntForUser(resolver,
                 Settings.System.BERRY_DARK_STYLE, 0, UserHandle.USER_CURRENT);
         Animations.reset(mContext);
+        CutoutSettings.reset(mContext);
         DozeSettings.reset(mContext);
         RoundedCorners.reset(mContext);
         SmartPixels.reset(mContext);
@@ -134,12 +126,7 @@ public class UserInterface extends SettingsPreferenceFragment implements Indexab
                     final Resources res = context.getResources();
 
                     if (!DeviceUtils.hasNotch(context))
-                        keys.add(DISPLAY_CUTOUT_FULL_SCREEN);
-
-                    boolean hasDisplayCutout = context.getResources().getBoolean(
-                            com.android.internal.R.bool.config_fillMainBuiltInDisplayCutout);
-                    if (!hasDisplayCutout)
-                        keys.add(DISPLAY_CUTOUT);
+                        keys.add(CUTOUT_SETTINGS);
 
                     boolean mSmartPixelsSupported = res.getBoolean(
                             com.android.internal.R.bool.config_supportSmartPixels);
